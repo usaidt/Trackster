@@ -25,6 +25,8 @@ defmodule TracksterWeb.Router do
     pipe_through :api
     get "/hello", HelloController, :index
     get "/hello/:name", HelloController, :hello
+
+    resources "/habits", HabitController, only: [:index, :show, :create]
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
