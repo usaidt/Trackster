@@ -1,18 +1,23 @@
 # Trackster
 
-To start your Phoenix server:
+Trackster is a simple, Elixir-powered API-driven application to help you track hobbies, todos, journal entries, and habits. The app includes a streak feature that encourages consistency in your daily routines.
 
-  * Run `mix setup` to install and setup dependencies
-  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+Built with Elixir and designed for the Nerves framework, Trackster is optimized to run on low-cost devices like the Raspberry Pi Zero 2 W which I built this for.
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+## Features
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+- Habit and todo tracking
+- Time tracking to track time spent on activities
+- Journal entries
+- Streak feature to track consecutive days of activity
+- Designed for deployment on Raspberry Pi Zero 2 W using Nerves
 
-## Learn more
+## Getting Started
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+1. Clone the repo:  
+   `git clone https://github.com/usaidt/trackster.git`
+
+2. Set up Nerves and dependencies:  
+   Follow the [Nerves setup documentation](https://hexdocs.pm/nerves/getting-started.html) to configure and deploy Trackster to your Raspberry Pi Zero 2 W.
+
+3. Start tracking your habits and hobbies!
