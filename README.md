@@ -4,6 +4,10 @@ Trackster is a simple, Elixir-powered API-driven application to help you track h
 
 Built with Elixir and designed for the Nerves framework, Trackster is optimized to run on low-cost devices like the Raspberry Pi Zero 2 W which I built this for.
 
+## Documentation site
+
+[URL for hosted documentation](https://trackster-raspapi.netlify.app)
+
 ## Features
 
 - Habit and todo tracking
