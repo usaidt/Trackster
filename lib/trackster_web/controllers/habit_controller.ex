@@ -1,48 +1,44 @@
 defmodule TracksterWeb.HabitController do
   use TracksterWeb, :controller
+  use TracksterWeb, :json_view
 
   alias Trackster.Habits
   alias Trackster.Habits.Habit
 
-  # GET /api/habits
+
   def index(conn, _params) do
     habits = Habits.list_habits()
-    json(conn, habits)
+    render(conn, :index, habits: habits)
   end
 
-  # GET /api/habits/:id
   def show(conn, %{"id" => id}) do
-    case Habits.get_habit(id) do
-      nil ->
-        conn
-        |> put_status(:not_found)
-        |> json(%{error: "Habit not found"})
-      habit ->
-        json(conn, habit)
-    end
+    habit = Habits.get_habit!(id)
+    render(conn, :show, habit: habit)
   end
 
-  # POST /api/habits
-  # Expects parameters in the format: %{ "habit" => %{ "name" => "Exercise", "frequency" => "daily" } }
   def create(conn, %{"habit" => habit_params}) do
-    case Habits.create_habit(habit_params) do
-      {:ok, %Habit{} = habit} ->
-        conn
-        |> put_status(:created)
-        |> json(habit)
-
-      {:error, changeset} ->
-        conn
-        |> put_status(:unprocessable_entity)
-        |> json(%{errors: translate_errors(changeset)})
+    with {:ok, %Habit{} = habit} <- Habits.create_habit(habit_params) do
+      conn
+      |> put_status(:created)
+      |> render(:show, habit: habit)
     end
   end
 
-  defp translate_errors(changeset) do
-    Ecto.Changeset.traverse_errors(changeset, fn {msg, opts} ->
-      Enum.reduce(opts, msg, fn {key, value}, acc ->
-        String.replace(acc, "%{#{key}}", to_string(value))
-      end)
-    end)
+  def today(conn, %{"show_completed" => show_completed}) do
+    habits = Habits.list_todays_habits(show_completed)
+    render(conn, :index, habits: habits)
+  end
+
+  def today(conn, _params) do
+    habits = Habits.list_todays_habits(false)
+    render(conn, :index, habits: habits)
+  end
+
+  def complete(conn, %{"id" => id}) do
+    habit = Habits.get_habit!(id)
+
+    with {:ok, %Habit{} = updated_habit} <- Habits.mark_complete(habit) do
+      render(conn, :show, habit: updated_habit)
+    end
   end
 end

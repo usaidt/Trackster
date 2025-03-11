@@ -23,10 +23,22 @@ defmodule TracksterWeb.Router do
   # Other scopes may use custom stacks.
   scope "/api", TracksterWeb do
     pipe_through :api
-    get "/hello", HelloController, :index
-    get "/hello/:name", HelloController, :hello
 
+    # Streak endpoints
+    get "/:name", StreakController, :show
+    put "/:name", StreakController, :update
+    patch "/:name/reset", StreakController, :reset
+    delete "/:name", StreakController, :delete
+
+    # Habit endpoints
+    get "/habits/today", HabitController, :today, as: :today_habits
     resources "/habits", HabitController, only: [:index, :show, :create]
+    patch "/habits/:id/complete", HabitController, :complete
+
+    # Journal endpoints
+    get "/journals/today", JournalController, :show_today
+    put "/journals/today", JournalController, :update_today
+    get "/journals/:date", JournalController, :show
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development

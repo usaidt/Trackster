@@ -47,6 +47,7 @@ defmodule TracksterWeb do
       import Plug.Conn
 
       unquote(verified_routes())
+      action_fallback TracksterWeb.FallbackController
     end
   end
 
@@ -104,6 +105,15 @@ defmodule TracksterWeb do
         endpoint: TracksterWeb.Endpoint,
         router: TracksterWeb.Router,
         statics: TracksterWeb.static_paths()
+    end
+  end
+
+  def json_view do
+    quote do
+      use Phoenix.Component
+
+      def render("index.json", assigns), do: TracksterWeb.HabitJSON.index(assigns)
+      def render("show.json", assigns), do: TracksterWeb.HabitJSON.show(assigns)
     end
   end
 
