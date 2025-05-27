@@ -1,5 +1,5 @@
-# .gitignore for secrets
-config/dev.secret.exs
+# Docs directory
+Documentation/
 
 # The directory Mix will write compiled artifacts to.
 /_build/
